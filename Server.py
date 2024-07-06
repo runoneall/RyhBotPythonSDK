@@ -8,6 +8,7 @@ BotFollowedFuncList = []
 BotUnFollowedFuncList = []
 GroupJoinFuncList = []
 GroupLeaveFuncList = []
+SettingsFuncList = []
 
 class Message:
     class Normal:
@@ -42,6 +43,14 @@ class Message:
         def __call__(self, *args, **kwds):
             rv=self.func(*args,**kwds)
             return rv
+    class BotSettings:
+        def __init__(self, func) -> None:
+            global SettingsFuncList
+            self.func=func
+            SettingsFuncList.append(func)
+        def __call__(self, *args, **kwds):
+            rv=self.func(*args,**kwds)
+            return rv
     class GroupJoin:
         def __init__(self, func) -> None:
             global GroupJoinFuncList
@@ -73,6 +82,9 @@ def RecvMsg():
             func(data=data['event'])
     if data['header']['eventType'] == "bot.unfollowed":
         for func in BotUnFollowedFuncList:
+            func(data=data['event'])
+    if data['header']['eventType'] == "bot.setting":
+        for func in SettingsFuncList:
             func(data=data['event'])
     if data['header']['eventType'] == "group.join":
         for func in GroupJoinFuncList:

@@ -191,3 +191,14 @@ class Board:
             api_url = f'https://chat-go.jwzhd.com/open-apis/v1/bot/board-all-dismiss?token={Token}'
             response = requests.post(api_url, headers=self.headers)
             return json.loads(response.text)
+
+def Delete(msgId:str, chatId:str, chatType:str):
+    Webhook = 'https://chat-go.jwzhd.com/open-apis/v1/bot/recall?token='
+    api_url = Webhook+Token
+    headers = {"Content-Type": "application/json; charset=utf-8",}
+    data = {
+        "msgId": msgId,
+        "chatId": chatId,
+        "chatType": chatType
+    }
+    return WebSend(api_url,headers,data)
