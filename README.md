@@ -83,6 +83,7 @@ Message使用方法：
    ```python
    Edit = Message.Edit()
    ```
+
    - Text
 
      ```python
@@ -129,6 +130,7 @@ Message使用方法：
    ```python
    Messages = Message.Messages()
    ```
+
    - Before
 
      ```python
@@ -148,4 +150,89 @@ Message使用方法：
          after=消息数量
      )
      ```
-5. 待续
+5. 管理看板
+
+   - 用户看板
+
+     ```python
+     Board = Message.Board()
+     ```
+
+     - Text
+
+       ```python
+       Board.Text(
+           recvId=
+           recvType=
+           text=看板文本
+       )
+       ```
+     - Markdown
+
+       ```python
+       Board.Markdown(
+           recvId=
+           recvType=
+           markdown=看板Markdown文本
+       )
+       ```
+     - Html
+
+       ```python
+       Board.Html(
+           recvId=
+           recvType=
+           html=看板HTML文本
+       )
+       ```
+     - 取消看板
+
+       ```python
+       Board.Dismiss(
+           recvId=
+           recvType=
+       )
+       ```
+   - 全局看板
+
+     ```python
+     BoardAll = Message.Board.All()
+     ```
+
+     - Text
+
+       ```python
+       BoardAll.Text(
+           text=看板内容
+       )
+       ```
+     - Markdown
+
+       ```python
+       BoardAll.Markdown(
+           markdown=看板Markdown文本
+       )
+       ```
+     - Html
+
+       ```python
+       BoardAll.Html(
+           html=看板Html文本
+       )
+       ```
+     - 取消看板
+
+       ```python
+       BoardAll.Dismiss()
+       ```
+6. 撤回消息
+
+   ```python
+   Delete = Message.Delete
+
+   Delete(
+       msgId=消息ID
+       chatId=目标ID
+       chatType=目标类型
+   )
+   ```
