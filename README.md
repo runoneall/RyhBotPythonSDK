@@ -252,49 +252,49 @@ Server使用方法
   ```
 
   以下内容均在逻辑代码处书写，不做提示
-- 接收普通消息
+1. 接收普通消息
 
   ```python
   @Server.Message.Normal
   def NormalHandle(data):
       # 逻辑代码
   ```
-- 接收指令消息
+2. 接收指令消息
 
   ```python
   @Server.Message.Command
   def CommandHandle(data):
       # 逻辑代码
   ```
-- 加机器人消息
+3. 加机器人消息
 
   ```python
   @Server.Message.BotFollowed
   def BotFollowedHandle(data):
       # 逻辑代码
   ```
-- 删除机器人消息
+4. 删除机器人消息
 
   ```python
   @Server.Message.BotUnFollowed
   def BotUnFollowedHandle(data):
       # 逻辑代码
   ```
-- 机器人设置消息
+5. 机器人设置消息
 
   ```python
   @Server.Message.BotSettings
   def BotSettingsHandle(data):
       # 逻辑代码
   ```
-- 用户加群消息
+6. 用户加群消息
 
   ```python
   @Server.Message.GroupJoin
   def GroupJoinHandle(data):
       # 逻辑代码
   ```
-- 用户退群消息
+7. 用户退群消息
 
   ```python
   @Server.Message.GroupLeave
