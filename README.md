@@ -236,3 +236,68 @@ Message使用方法：
        chatType=目标类型
    )
    ```
+
+Server使用方法
+
+- 想要启动服务，需要使用以下代码
+
+  ```python
+  # 逻辑代码
+
+  Server.Start(
+      host=Host名称
+      port=端口
+      debug= 是(True) 否(False) 启动调试模式
+  )
+  ```
+
+  以下内容均在逻辑代码处书写，不做提示
+- 接收普通消息
+
+  ```python
+  @Server.Message.Normal
+  def NormalHandle(data):
+      # 逻辑代码
+  ```
+- 接收指令消息
+
+  ```python
+  @Server.Message.Command
+  def CommandHandle(data):
+      # 逻辑代码
+  ```
+- 加机器人消息
+
+  ```python
+  @Server.Message.BotFollowed
+  def BotFollowedHandle(data):
+      # 逻辑代码
+  ```
+- 删除机器人消息
+
+  ```python
+  @Server.Message.BotUnFollowed
+  def BotUnFollowedHandle(data):
+      # 逻辑代码
+  ```
+- 机器人设置消息
+
+  ```python
+  @Server.Message.BotSettings
+  def BotSettingsHandle(data):
+      # 逻辑代码
+  ```
+- 用户加群消息
+
+  ```python
+  @Server.Message.GroupJoin
+  def GroupJoinHandle(data):
+      # 逻辑代码
+  ```
+- 用户退群消息
+
+  ```python
+  @Server.Message.GroupLeave
+  def GroupLeaveHandle(data):
+      # 逻辑代码
+  ```
