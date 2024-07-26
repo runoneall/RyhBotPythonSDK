@@ -8,6 +8,7 @@ Message负责发送消息，支持：
 - 使用 `Before` 或 `After` 方法获取消息
 - 设置与取消 `Text` `Markdown` `Html` 类型的看板 (看板支持用户看板与全局看板)
 - 撤回消息
+- 发送Html消息 (需插件加载器)
 
 Server负责接收消息，支持：
 
@@ -18,6 +19,8 @@ Server负责接收消息，支持：
 - 机器人设置消息
 - 用户加群消息
 - 用户退群消息
+
+支持插件 (见新版功能总览)
 
 使用方法：
 
@@ -252,52 +255,77 @@ Server使用方法
   ```
 
   以下内容均在逻辑代码处书写，不做提示
-1. 接收普通消息
+- 接收普通消息
 
   ```python
   @Server.Message.Normal
   def NormalHandle(data):
       # 逻辑代码
   ```
-2. 接收指令消息
+- 接收指令消息
 
   ```python
   @Server.Message.Command
   def CommandHandle(data):
       # 逻辑代码
   ```
-3. 加机器人消息
+- 加机器人消息
 
   ```python
   @Server.Message.BotFollowed
   def BotFollowedHandle(data):
       # 逻辑代码
   ```
-4. 删除机器人消息
+- 删除机器人消息
 
   ```python
   @Server.Message.BotUnFollowed
   def BotUnFollowedHandle(data):
       # 逻辑代码
   ```
-5. 机器人设置消息
+- 机器人设置消息
 
   ```python
   @Server.Message.BotSettings
   def BotSettingsHandle(data):
       # 逻辑代码
   ```
-6. 用户加群消息
+- 用户加群消息
 
   ```python
   @Server.Message.GroupJoin
   def GroupJoinHandle(data):
       # 逻辑代码
   ```
-7. 用户退群消息
+- 用户退群消息
 
   ```python
   @Server.Message.GroupLeave
   def GroupLeaveHandle(data):
       # 逻辑代码
   ```
+
+
+# 新版功能总览
+
+1. 插件加载器
+
+   ```python
+   from RyhBotPythonSDK.Plugin import Plugin
+   ```
+   - 使用插件
+     1. 下载插件，为Python文件，并以 `sdk_` 开头
+     2. 将文件放入 `RyhBotPythonSDK/Plugins` 文件夹下
+     3. 在项目中以 `Plugin.插件名` 使用
+2. Html支持 (需插件加载器)
+
+   ```python
+   Plugin.sdk_HtmlSupport.WebSend = Message.WebSend
+   Plugin.sdk_HtmlSupport.Token = '机器人Token'
+
+   Plugin.sdk_HtmlSupport.SendHtml(
+       recvId = '',
+       recvType = '',
+       html = 'html文本'
+   )
+   ```
