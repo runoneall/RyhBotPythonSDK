@@ -147,3 +147,13 @@ if len(argv) > 1:
             print('remove success')
         else:
             print('Module Not Found')
+
+else:
+    print("Don't Know How To Use?")
+    print('''
+install   (plugin-tool.py install <url>)          install a plugin from url.
+loadfile  (plugin-tool.py loadfile <file path>)   install a plugin from local file.
+info      (plugin-tool.py info <plugin name>)     show a plugin info.
+list      (plugin-tool.py list)                   list installed plugins.
+remove    (plugin-tool.py remove <plugin name>)   delete a plugin.
+''')
