@@ -27,7 +27,6 @@ def is_url(url:str) -> bool:
         r'(?:/?|[/?]\S+)$', re.IGNORECASE)
     return re.match(regex, url) is not None
 
-# https://gh.llkk.cc/https://raw.githubusercontent.com/runoneall/ShareFile/main/plugin_Html.zip
 def download_file(url:str, save_path:str) -> bool:
     print('download plugin ...')
     try:
