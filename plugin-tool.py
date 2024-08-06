@@ -91,6 +91,23 @@ if len(argv) > 1:
                         print('install failed')
         shutil.rmtree(download_path)
 
+    if argv[1] == 'loadfile':
+        plugin_folder_path = './Plugins/'
+        download_folder_path = './download/'
+        init_folder(download_folder_path)
+        plugin_file_path = argv[2]
+        shutil.copy(plugin_file_path, download_folder_path)
+        plugin_name = os.path.basename(plugin_file_path)
+        save_path = download_folder_path+plugin_name
+        if unzip_file(save_path, download_folder_path):
+            plugin_folder_name = get_plugin_name(download_folder_path)
+            plugin_path = download_folder_path+plugin_folder_name
+            if move_plugin(plugin_folder_path+plugin_folder_name, plugin_path):
+                print('install finish')
+            else:
+                print('install failed')
+        shutil.rmtree(download_folder_path)
+
     if argv[1] == 'info':
         plugin_name = argv[2]
         plugin_path = './Plugins/'
@@ -121,3 +138,12 @@ if len(argv) > 1:
             if plugin_name.startswith('plugin_'):
                 print(i, plugin_name)
                 i += 1
+
+    if argv[1] == 'remove':
+        plugin_name = argv[2]
+        plugin_path = f'./Plugins/{plugin_name}'
+        if os.path.exists(plugin_path):
+            shutil.rmtree(plugin_path)
+            print('remove success')
+        else:
+            print('Module Not Found')
