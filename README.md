@@ -305,7 +305,6 @@ Server使用方法
       # 逻辑代码
   ```
 
-
 # 新版功能总览
 
 1. 插件加载器
@@ -314,18 +313,16 @@ Server使用方法
    from RyhBotPythonSDK.Plugin import Plugin
    ```
    - 使用插件
-     1. 下载插件，为Python文件，并以 `sdk_` 开头
-     2. 将文件放入 `RyhBotPythonSDK/Plugins` 文件夹下
-     3. 在项目中以 `Plugin.插件名` 使用
+     1. 下载插件，为文件夹，并以 `plugin_` 开头
+     2. 将文件夹放入 `RyhBotPythonSDK/Plugins` 文件夹下
+     3. 在项目中以 `Plugin.插件名.方法名` 使用
 2. Html支持 (需插件加载器)
 
    ```python
-   Plugin.sdk_HtmlSupport.WebSend = Message.WebSend
-   Plugin.sdk_HtmlSupport.Token = '机器人Token'
-
-   Plugin.sdk_HtmlSupport.SendHtml(
-       recvId = '',
-       recvType = '',
-       html = 'html文本'
+   Plugin.Html.SendHtml.Token='机器人Token'
+   Plugin.Html.SendHtml.SendHtml(
+       recvId=,
+       recvType=,
+       html='html数据'
    )
    ```

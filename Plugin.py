@@ -2,18 +2,52 @@ import importlib
 import os
 import sys
 
+class Plugins:
+    def __init__(self) -> None:
+        pass
+
 class PluginLoader:
     def __init__(self) -> None:
-        self.path = './RyhBotPythonSDK/Plugins'
-        if self.path not in sys.path:
-            sys.path.append(self.path)
 
-        files = os.listdir(self.path)
-        sdk_files = [f for f in files if f.startswith('sdk_') and f.endswith('.py')]
-        for file in sdk_files:
-            module_name = file[:-3]
-            module = importlib.import_module(module_name)
-            setattr(self, module_name, module)
-            print(f'* Module {module_name} Loaded')
+        # Get Plugins
+        self.PluginPath = './RyhBotPythonSDK/Plugins'
+        self.Plugins = os.listdir(self.PluginPath)
 
-Plugin = PluginLoader()
+        # Add Import Path
+        if self.PluginPath not in sys.path:
+            sys.path.append(self.PluginPath)
+
+        # Load Plugin
+        for PluginName in self.Plugins:
+            if PluginName.startswith('plugin_'):
+                PluginName_ = PluginName[7:]
+
+                # Add Module Improt Path
+                ModulePath = self.PluginPath+'/'+PluginName
+                if ModulePath not in sys.path:
+                    sys.path.append(ModulePath)
+
+                print(f'Load Plugin {PluginName_}')
+
+                # Get Plugin Info
+                module_install = importlib.import_module(f'{PluginName}.install')
+                func_name = module_install.funcname
+                attr_dict = module_install.attrs
+
+                # Add Attr To Class
+                attrs = attr_dict.keys()
+                attr_list = {}
+                for attr_name in attrs:
+                    attr_value_name = attr_dict[attr_name]
+                    attr_value = importlib.import_module(f'{PluginName}.{attr_value_name}')
+                    print(f'`- Add Attr {attr_value_name} as {attr_name}')
+                    attr_list[attr_name] = attr_value
+                print(f'Set Plugin Name To {func_name}')
+                attr_class = type(func_name, (object,), attr_list)
+
+                # Add Class To Plugin
+                setattr(Plugins, func_name, attr_class)
+                print('Finish\n')
+
+PluginLoader()
+Plugin = Plugins()
