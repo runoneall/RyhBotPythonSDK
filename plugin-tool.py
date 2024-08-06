@@ -1,3 +1,4 @@
+import importlib
 import re
 import shutil
 import sys
@@ -71,21 +72,52 @@ def move_plugin(plugin_path:str, download_plugin_path:str) -> bool:
 
 argv = sys.argv
 if len(argv) > 1:
-    download_url = argv[1]
-    download_path = './download/'
-    save_path = download_path+'download.zip'
-    plugin_path = './Plugins/'
 
-    init_folder(download_path)
-    if is_url(download_url):
-        if download_file(download_url, save_path):
-            if unzip_file(save_path, download_path):
-                plugin_name = get_plugin_name(download_path)
-                download_plugin_path = download_path+plugin_name
-                plugin_path = plugin_path+plugin_name
-                if move_plugin(plugin_path, download_plugin_path):
-                    print('install finish')
-                else:
-                    print('install failed')
-    
-    shutil.rmtree(download_path)
+    if argv[1] == 'install':
+        download_url = argv[2]
+        download_path = './download/'
+        save_path = download_path+'download.zip'
+        plugin_path = './Plugins/'
+        init_folder(download_path)
+        if is_url(download_url):
+            if download_file(download_url, save_path):
+                if unzip_file(save_path, download_path):
+                    plugin_name = get_plugin_name(download_path)
+                    download_plugin_path = download_path+plugin_name
+                    plugin_path = plugin_path+plugin_name
+                    if move_plugin(plugin_path, download_plugin_path):
+                        print('install finish')
+                    else:
+                        print('install failed')
+        shutil.rmtree(download_path)
+
+    if argv[1] == 'info':
+        plugin_name = argv[2]
+        plugin_path = './Plugins/'
+        plugin_module = f'./Plugins/{plugin_name}'
+        if os.path.exists(plugin_module):
+            if plugin_path not in sys.path:
+                sys.path.append(plugin_path)
+            install = importlib.import_module(f'{plugin_name}.install')
+            print(f'Module Name: {install.funcname}')
+            print('Attrs:')
+            attr_dict = install.attrs
+            for attr_name in attr_dict.keys():
+                print(f'`- Attr Name {attr_name} ==> Func Name {attr_dict[attr_name]}')
+            print(f'Author: {install.author}')
+            print(f'Version: {install.version}')
+            print('')
+            print(install.introduction)
+            print('')
+            print(f'Module Space: Plugin.{install.funcname}.')
+        else:
+            print('Module Not Found')
+
+    if argv[1] == 'list':
+        plugin_path = './Plugins/'
+        plugins = os.listdir(plugin_path)
+        i = 1
+        for plugin_name in plugins:
+            if plugin_name.startswith('plugin_'):
+                print(i, plugin_name)
+                i += 1
