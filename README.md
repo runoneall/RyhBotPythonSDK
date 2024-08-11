@@ -326,3 +326,8 @@ Server使用方法
        html='html数据'
    )
    ```
+3. 插件管理器
+
+  ```python
+  python plugin-tool.py
+  ```
