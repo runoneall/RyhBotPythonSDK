@@ -20,14 +20,13 @@ class PluginLoader:
         # Load Plugin
         for PluginName in self.Plugins:
             if PluginName.startswith('plugin_'):
-                PluginName_ = PluginName[7:]
 
                 # Add Module Improt Path
                 ModulePath = self.PluginPath+'/'+PluginName
                 if ModulePath not in sys.path:
                     sys.path.append(ModulePath)
 
-                print(f'Load Plugin {PluginName_}')
+                print(f'Load: {PluginName}')
 
                 # Get Plugin Info
                 module_install = importlib.import_module(f'{PluginName}.install')
@@ -40,9 +39,9 @@ class PluginLoader:
                 for attr_name in attrs:
                     attr_value_name = attr_dict[attr_name]
                     attr_value = importlib.import_module(f'{PluginName}.{attr_value_name}')
-                    print(f'`- {attr_value_name} ==> {attr_name}')
+                    print(f' `- {attr_value_name} ==> {attr_name}')
                     attr_list[attr_name] = attr_value
-                print(f'Set Plugin Name To {func_name}')
+                print(f'Set Name: {func_name}')
                 attr_class = type(func_name, (object,), attr_list)
 
                 # Add Class To Plugin
