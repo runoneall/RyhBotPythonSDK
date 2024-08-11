@@ -328,6 +328,6 @@ Server使用方法
    ```
 3. 插件管理器
 
-  ```python
-  python plugin-tool.py
-  ```
+   ```python
+   python plugin-tool.py
+   ```
