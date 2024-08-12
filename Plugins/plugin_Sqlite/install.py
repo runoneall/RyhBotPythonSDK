@@ -1,8 +1,9 @@
 funcname = 'Sqlite'
 attrs = {
-    'Connect': 'connect_db',
+    'db': 'db',
     'Execute': 'execute'
 }
 author = 'runoneall'
 version = '1.0'
-introduction = '''Add Sqlite Database Support For RyhBotPythonSDK'''
+introduction = '''Add Sqlite Database Support For RyhBotPythonSDK
+Making Sqlite easy to use!'''

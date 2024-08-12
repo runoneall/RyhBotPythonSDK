@@ -120,7 +120,7 @@ if len(argv) > 1:
             print('Attrs:')
             attr_dict = install.attrs
             for attr_name in attr_dict.keys():
-                print(f'`- {attr_name} ==> {attr_dict[attr_name]}')
+                print(f'`- {attr_name} ==> {attr_dict[attr_name]}.py')
             print(f'Author: {install.author}')
             print(f'Version: {install.version}')
             print('')
