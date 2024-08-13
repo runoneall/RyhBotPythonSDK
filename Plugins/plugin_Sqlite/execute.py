@@ -72,3 +72,13 @@ def update(cursor, update_info: dict, condition: str = ''):
         sql += f'WHERE {condition}'
     sql += ';'
     run_command(cursor, sql)
+
+def select(cursor, table_name: str, condition: str = ''):
+    sql = f'SELECT * FROM '
+    table_name = table_name.replace(' ', '_')
+    sql += f'{table_name} '
+    if condition != '':
+        sql += f'WHERE {condition}'
+    sql += ';'
+    result = run_command(cursor, sql)
+    return result
