@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import json
+
 app = Flask(__name__)
 
 NormalFuncList = []
@@ -14,59 +15,73 @@ class Message:
     class Normal:
         def __init__(self, func) -> None:
             global NormalFuncList
-            self.func=func
+            self.func = func
             NormalFuncList.append(func)
+
         def __call__(self, *args, **kwds):
-            rv=self.func(*args,**kwds)
+            rv = self.func(*args, **kwds)
             return rv
+
     class Command:
         def __init__(self, func) -> None:
             global CommandFuncList
-            self.func=func
+            self.func = func
             CommandFuncList.append(func)
+
         def __call__(self, *args, **kwds):
-            rv=self.func(*args,**kwds)
+            rv = self.func(*args, **kwds)
             return rv
+
     class BotFollowed:
         def __init__(self, func) -> None:
             global BotFollowedFuncList
-            self.func=func
+            self.func = func
             BotFollowedFuncList.append(func)
+
         def __call__(self, *args, **kwds):
-            rv=self.func(*args,**kwds)
+            rv = self.func(*args, **kwds)
             return rv
+
     class BotUnFollowed:
         def __init__(self, func) -> None:
             global BotUnFollowedFuncList
-            self.func=func
+            self.func = func
             BotUnFollowedFuncList.append(func)
+
         def __call__(self, *args, **kwds):
-            rv=self.func(*args,**kwds)
+            rv = self.func(*args, **kwds)
             return rv
+
     class BotSettings:
         def __init__(self, func) -> None:
             global BotSettingsFuncList
             self.func=func
             BotSettingsFuncList.append(func)
+
         def __call__(self, *args, **kwds):
-            rv=self.func(*args,**kwds)
+            rv = self.func(*args, **kwds)
             return rv
+
     class GroupJoin:
         def __init__(self, func) -> None:
             global GroupJoinFuncList
-            self.func=func
+            self.func = func
             GroupJoinFuncList.append(func)
+
         def __call__(self, *args, **kwds):
-            rv=self.func(*args,**kwds)
+            rv = self.func(*args, **kwds)
             return rv
+
     class GroupLeave:
         def __init__(self, func) -> None:
             global GroupLeaveFuncList
-            self.func=func
+            self.func = func
             GroupLeaveFuncList.append(func)
+
         def __call__(self, *args, **kwds):
-            rv=self.func(*args,**kwds)
+            rv = self.func(*args, **kwds)
             return rv
+
 
 @app.route('/', methods=['POST'])
 def RecvMsg():
@@ -97,7 +112,8 @@ def RecvMsg():
         json.dump(data, RecvMsg, ensure_ascii=False, indent=4)
     return jsonify(data)
 
-def Start(host:str, port:int, debug:bool=False):
+
+def Start(host: str, port: int, debug: bool = False):
     app.run(
         host=host,
         port=port,

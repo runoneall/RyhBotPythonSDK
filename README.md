@@ -41,43 +41,43 @@ Message使用方法：
    Send = Message.Send()
    ```
 
-   - Text：
+    - Text：
 
-     ```python
-     Send.Text(
-         recvId=目标ID
-         recvType=目标类型
-         text=文本
-     )
-     ```
-   - Markdown
+      ```python
+      Send.Text(
+          recvId=目标ID
+          recvType=目标类型
+          text=文本
+      )
+      ```
+    - Markdown
 
-     ```python
-     Send.Markdown(
-         recvId=目标ID
-         recvType=目标类型
-         markdown=Markdown语句
-     )
-     ```
-   - Image
+      ```python
+      Send.Markdown(
+          recvId=目标ID
+          recvType=目标类型
+          markdown=Markdown语句
+      )
+      ```
+    - Image
 
-     ```python
-     Send.Image(
-         recvId=目标ID
-         recvType=目标类型
-         imageUrl=图片URL
-     )
-     ```
-   - File
+      ```python
+      Send.Image(
+          recvId=目标ID
+          recvType=目标类型
+          imageUrl=图片URL
+      )
+      ```
+    - File
 
-     ```python
-     Send.File(
-         recvId=目标ID
-         recvType=目标类型
-         fileName=文件名
-         fileUrl=文件URL
-     )
-     ```
+      ```python
+      Send.File(
+          recvId=目标ID
+          recvType=目标类型
+          fileName=文件名
+          fileUrl=文件URL
+      )
+      ```
 
 ### 以下若无特别说明，`recvId` 和 `recvType` 的含义与2中保持一样，不做解释
 
@@ -87,147 +87,147 @@ Message使用方法：
    Edit = Message.Edit()
    ```
 
-   - Text
+    - Text
 
-     ```python
-     Edit.Text(
-         msgId=消息ID
-         recvId=
-         recvType=
-         new_text=新文本
-     )
-     ```
-   - Markdown
+      ```python
+      Edit.Text(
+          msgId=消息ID
+          recvId=
+          recvType=
+          new_text=新文本
+      )
+      ```
+    - Markdown
 
-     ```python
-     Edit.Markdown(
-         msgId=消息ID
-         recvId=
-         recvType=
-         new_markdown=新Markdown
-     )
-     ```
-   - Image
+      ```python
+      Edit.Markdown(
+          msgId=消息ID
+          recvId=
+          recvType=
+          new_markdown=新Markdown
+      )
+      ```
+    - Image
 
-     ```python
-     Edit.Image(
-         msgId=消息ID
-         recvId=
-         recvType=
-         new_image_url=新图片URL
-     )
-     ```
-   - File
+      ```python
+      Edit.Image(
+          msgId=消息ID
+          recvId=
+          recvType=
+          new_image_url=新图片URL
+      )
+      ```
+    - File
 
-     ```python
-     Edit.File(
-         msgId=消息ID
-         recvId=
-         recvType=
-         new_file_name=新文件名
-         new_file_url=新文件URL
-     )
-     ```
+      ```python
+      Edit.File(
+          msgId=消息ID
+          recvId=
+          recvType=
+          new_file_name=新文件名
+          new_file_url=新文件URL
+      )
+      ```
 4. 获取消息
 
    ```python
    Messages = Message.Messages()
    ```
 
-   - Before
+    - Before
 
-     ```python
-     Messages.Before(
-         chat_id=目标ID
-         chat_type=目标类型
-         before=消息数量
-     )
-     ```
-   - After
+      ```python
+      Messages.Before(
+          chat_id=目标ID
+          chat_type=目标类型
+          before=消息数量
+      )
+      ```
+    - After
 
-     ```python
-     Messages.After(
-         chat_id=目标ID
-         chat_type=目标类型
-         message_id=以某一消息为基准，获取后来的 after 条消息
-         after=消息数量
-     )
-     ```
+      ```python
+      Messages.After(
+          chat_id=目标ID
+          chat_type=目标类型
+          message_id=以某一消息为基准，获取后来的 after 条消息
+          after=消息数量
+      )
+      ```
 5. 管理看板
 
-   - 用户看板
+    - 用户看板
 
-     ```python
-     Board = Message.Board()
-     ```
+      ```python
+      Board = Message.Board()
+      ```
 
-     - Text
+        - Text
 
-       ```python
-       Board.Text(
-           recvId=
-           recvType=
-           text=看板文本
-       )
-       ```
-     - Markdown
+          ```python
+          Board.Text(
+              recvId=
+              recvType=
+              text=看板文本
+          )
+          ```
+        - Markdown
 
-       ```python
-       Board.Markdown(
-           recvId=
-           recvType=
-           markdown=看板Markdown文本
-       )
-       ```
-     - Html
+          ```python
+          Board.Markdown(
+              recvId=
+              recvType=
+              markdown=看板Markdown文本
+          )
+          ```
+        - Html
 
-       ```python
-       Board.Html(
-           recvId=
-           recvType=
-           html=看板HTML文本
-       )
-       ```
-     - 取消看板
+          ```python
+          Board.Html(
+              recvId=
+              recvType=
+              html=看板HTML文本
+          )
+          ```
+        - 取消看板
 
-       ```python
-       Board.Dismiss(
-           recvId=
-           recvType=
-       )
-       ```
-   - 全局看板
+          ```python
+          Board.Dismiss(
+              recvId=
+              recvType=
+          )
+          ```
+    - 全局看板
 
-     ```python
-     BoardAll = Message.Board.All()
-     ```
+      ```python
+      BoardAll = Message.Board.All()
+      ```
 
-     - Text
+        - Text
 
-       ```python
-       BoardAll.Text(
-           text=看板内容
-       )
-       ```
-     - Markdown
+          ```python
+          BoardAll.Text(
+              text=看板内容
+          )
+          ```
+        - Markdown
 
-       ```python
-       BoardAll.Markdown(
-           markdown=看板Markdown文本
-       )
-       ```
-     - Html
+          ```python
+          BoardAll.Markdown(
+              markdown=看板Markdown文本
+          )
+          ```
+        - Html
 
-       ```python
-       BoardAll.Html(
-           html=看板Html文本
-       )
-       ```
-     - 取消看板
+          ```python
+          BoardAll.Html(
+              html=看板Html文本
+          )
+          ```
+        - 取消看板
 
-       ```python
-       BoardAll.Dismiss()
-       ```
+          ```python
+          BoardAll.Dismiss()
+          ```
 6. 撤回消息
 
    ```python
@@ -312,10 +312,10 @@ Server使用方法
    ```python
    from RyhBotPythonSDK.Plugin import Plugin
    ```
-   - 使用插件
-     1. 下载插件，为文件夹，并以 `plugin_` 开头
-     2. 将文件夹放入 `RyhBotPythonSDK/Plugins` 文件夹下
-     3. 在项目中以 `Plugin.插件名.方法名` 使用
+    - 使用插件
+        1. 下载插件，为文件夹，并以 `plugin_` 开头
+        2. 将文件夹放入 `RyhBotPythonSDK/Plugins` 文件夹下
+        3. 在项目中以 `Plugin.插件名.方法名` 使用
 2. Html支持 (需插件加载器)
 
    ```python

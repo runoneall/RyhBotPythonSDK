@@ -6,7 +6,8 @@ import os
 import zipfile
 import requests
 
-def init_folder(folder_path:str) -> bool:
+
+def init_folder(folder_path: str) -> bool:
     print('init download folder ...')
     try:
         if os.path.exists(folder_path):
@@ -18,7 +19,8 @@ def init_folder(folder_path:str) -> bool:
         print('failed')
         return False
 
-def is_url(url:str) -> bool:
+
+def is_url(url: str) -> bool:
     regex = re.compile(
         r'^(?:http|ftp)s?://'
         r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|'
@@ -28,7 +30,8 @@ def is_url(url:str) -> bool:
         r'(?:/?|[/?]\S+)$', re.IGNORECASE)
     return re.match(regex, url) is not None
 
-def download_file(url:str, save_path:str) -> bool:
+
+def download_file(url: str, save_path: str) -> bool:
     print('download plugin ...')
     try:
         response = requests.get(url, stream=True)
@@ -41,8 +44,9 @@ def download_file(url:str, save_path:str) -> bool:
     except:
         print('failed')
         return False
-    
-def unzip_file(zip_file_path:str, output_folder:str) -> bool:
+
+
+def unzip_file(zip_file_path: str, output_folder: str) -> bool:
     print('start unzip ...')
     try:
         with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
@@ -52,8 +56,9 @@ def unzip_file(zip_file_path:str, output_folder:str) -> bool:
     except:
         print('failed')
         return False
-    
-def get_plugin_name(folder_path:str) -> str|None:
+
+
+def get_plugin_name(folder_path: str) -> str | None:
     items = os.listdir(folder_path)
     for item in items:
         item_path = os.path.join(folder_path, item)
@@ -61,7 +66,8 @@ def get_plugin_name(folder_path:str) -> str|None:
             return item
     return None
 
-def move_plugin(plugin_path:str, download_plugin_path:str) -> bool:
+
+def move_plugin(plugin_path: str, download_plugin_path: str) -> bool:
     if os.path.exists(plugin_path):
         print('Extension already exists! Delete it? (y|n)')
         if input('> ') != 'y':
@@ -70,21 +76,22 @@ def move_plugin(plugin_path:str, download_plugin_path:str) -> bool:
     shutil.move(download_plugin_path, plugin_path)
     return True
 
+
 argv = sys.argv
 if len(argv) > 1:
 
     if argv[1] == 'install':
         download_url = argv[2]
         download_path = './download/'
-        save_path = download_path+'download.zip'
+        save_path = download_path + 'download.zip'
         plugin_path = './Plugins/'
         init_folder(download_path)
         if is_url(download_url):
             if download_file(download_url, save_path):
                 if unzip_file(save_path, download_path):
                     plugin_name = get_plugin_name(download_path)
-                    download_plugin_path = download_path+plugin_name
-                    plugin_path = plugin_path+plugin_name
+                    download_plugin_path = download_path + plugin_name
+                    plugin_path = plugin_path + plugin_name
                     if move_plugin(plugin_path, download_plugin_path):
                         print('install finish')
                     else:
@@ -98,11 +105,11 @@ if len(argv) > 1:
         plugin_file_path = argv[2]
         shutil.copy(plugin_file_path, download_folder_path)
         plugin_name = os.path.basename(plugin_file_path)
-        save_path = download_folder_path+plugin_name
+        save_path = download_folder_path + plugin_name
         if unzip_file(save_path, download_folder_path):
             plugin_folder_name = get_plugin_name(download_folder_path)
-            plugin_path = download_folder_path+plugin_folder_name
-            if move_plugin(plugin_folder_path+plugin_folder_name, plugin_path):
+            plugin_path = download_folder_path + plugin_folder_name
+            if move_plugin(plugin_folder_path + plugin_folder_name, plugin_path):
                 print('install finish')
             else:
                 print('install failed')
