@@ -8,7 +8,7 @@ BotFollowedFuncList = []
 BotUnFollowedFuncList = []
 GroupJoinFuncList = []
 GroupLeaveFuncList = []
-SettingsFuncList = []
+BotSettingsFuncList = []
 
 class Message:
     class Normal:
@@ -45,9 +45,9 @@ class Message:
             return rv
     class BotSettings:
         def __init__(self, func) -> None:
-            global SettingsFuncList
+            global BotSettingsFuncList
             self.func=func
-            SettingsFuncList.append(func)
+            BotSettingsFuncList.append(func)
         def __call__(self, *args, **kwds):
             rv=self.func(*args,**kwds)
             return rv
@@ -84,7 +84,7 @@ def RecvMsg():
         for func in BotUnFollowedFuncList:
             func(data=data['event'])
     if data['header']['eventType'] == "bot.setting":
-        for func in SettingsFuncList:
+        for func in BotSettingsFuncList:
             func(data=data['event'])
     if data['header']['eventType'] == "group.join":
         for func in GroupJoinFuncList:
