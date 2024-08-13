@@ -2,9 +2,11 @@ import importlib
 import os
 import sys
 
+
 class Plugins:
     def __init__(self) -> None:
         pass
+
 
 class PluginLoader:
     def __init__(self) -> None:
@@ -22,7 +24,7 @@ class PluginLoader:
             if PluginName.startswith('plugin_'):
 
                 # Add Module Improt Path
-                ModulePath = self.PluginPath+'/'+PluginName
+                ModulePath = self.PluginPath + '/' + PluginName
                 if ModulePath not in sys.path:
                     sys.path.append(ModulePath)
 
@@ -47,6 +49,7 @@ class PluginLoader:
                 # Add Class To Plugin
                 setattr(Plugins, func_name, attr_class)
                 print('Finish\n')
+
 
 PluginLoader()
 Plugin = Plugins()
