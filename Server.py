@@ -11,6 +11,7 @@ GroupJoinFuncList = []
 GroupLeaveFuncList = []
 BotSettingsFuncList = []
 
+
 class Message:
     class Normal:
         def __init__(self, func) -> None:
@@ -55,7 +56,7 @@ class Message:
     class BotSettings:
         def __init__(self, func) -> None:
             global BotSettingsFuncList
-            self.func=func
+            self.func = func
             BotSettingsFuncList.append(func)
 
         def __call__(self, *args, **kwds):
