@@ -87,6 +87,12 @@ class Message:
 @app.route('/', methods=['POST'])
 def RecvMsg():
     data = request.json
+
+    # fix chat content
+    if data['event']['chat']['chatType'] == 'bot':
+        data['event']['chat']['chatId'] = data['event']['sender']['senderId']
+        data['event']['chat']['chatType'] = data['event']['sender']['senderType']
+
     if data['header']['eventType'] == "message.receive.normal":
         for func in NormalFuncList:
             func(data=data['event'])
