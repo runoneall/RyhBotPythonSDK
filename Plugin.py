@@ -36,7 +36,7 @@ class PluginLoader:
                 attr_dict = module_install.attrs
 
                 # Add Attr To Class
-                attrs = attr_dict.keys()
+                attrs = list(attr_dict.keys())
                 attr_list = {}
                 for attr_name in attrs:
                     attr_value_name = attr_dict[attr_name]
