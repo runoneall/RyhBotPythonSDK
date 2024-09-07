@@ -10,6 +10,7 @@ BotUnFollowedFuncList = []
 GroupJoinFuncList = []
 GroupLeaveFuncList = []
 BotSettingsFuncList = []
+AllTypeFuncList = []
 
 
 class Message:
@@ -82,6 +83,16 @@ class Message:
         def __call__(self, *args, **kwds):
             rv = self.func(*args, **kwds)
             return rv
+    
+    class AllType:
+        def __init__(self, func) -> None:
+            global AllTypeFuncList
+            self.func = func
+            AllTypeFuncList.append(func)
+
+        def __call__(self, *args, **kwds):
+            rv = self.func(*args, **kwds)
+            return rv
 
 
 @app.route('/', methods=['POST'])
@@ -114,6 +125,8 @@ def RecvMsg():
     if data['header']['eventType'] == "group.leave":
         for func in GroupLeaveFuncList:
             func(data=data['event'])
+    for func in AllTypeFuncList:
+        func(data=data['event'])
 
     with open("RecvMsg.json", "w", encoding="utf-8") as RecvMsg:
         json.dump(data, RecvMsg, ensure_ascii=False, indent=4)
