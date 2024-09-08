@@ -125,8 +125,9 @@ def RecvMsg():
     if data['header']['eventType'] == "group.leave":
         for func in GroupLeaveFuncList:
             func(data=data['event'])
-    for func in AllTypeFuncList:
-        func(data=data['event'])
+    if AllTypeFuncList != []:
+        for func in AllTypeFuncList:
+            func(data=data['event'])
 
     with open("RecvMsg.json", "w", encoding="utf-8") as RecvMsg:
         json.dump(data, RecvMsg, ensure_ascii=False, indent=4)
