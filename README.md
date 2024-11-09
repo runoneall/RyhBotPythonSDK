@@ -1,6 +1,6 @@
 # RyhBotPythonSDK
 
-## Thanks [Spectrollay](https://github.com/spectrollay), [Teddyxiongtdx](https://github.com/Teddyxiongtdx) for help with the code and Chinese translation !
+## Thanks [Spectrollay](https://github.com/spectrollay), [Teddyxiongtdx](https://github.com/Teddyxiongtdx) for help with the code !
 
 ## For usage, please visit the [Project Wiki](https://github.com/runoneall/RyhBotPythonSDK/wiki)
 
