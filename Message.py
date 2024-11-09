@@ -15,7 +15,7 @@ class Send:
         self.api_url = Webhook + Token
         self.headers = {"Content-Type": "application/json; charset=utf-8", }
 
-    def Text(self, recvId: str, recvType: str, text: str, buttons: list = []):
+    def Text(self, recvId: str, recvType: str, text: str, buttons: list = [], parentId: str = None):
         data = {
             "recvId": recvId,
             "recvType": recvType,
@@ -25,9 +25,11 @@ class Send:
                 "buttons": [buttons]
             }
         }
+        if parentId != None:
+            data["parentId"] = parentId
         return WebSend(self.api_url, self.headers, data)
 
-    def Markdown(self, recvId: str, recvType: str, markdown: str, buttons: list = []):
+    def Markdown(self, recvId: str, recvType: str, markdown: str, buttons: list = [], parentId: str = None):
         data = {
             "recvId": recvId,
             "recvType": recvType,
@@ -37,9 +39,11 @@ class Send:
                 "buttons": [buttons]
             }
         }
+        if parentId != None:
+            data["parentId"] = parentId
         return WebSend(self.api_url, self.headers, data)
 
-    def Image(self, recvId: str, recvType: str, imageUrl: str, buttons: list = []):
+    def Image(self, recvId: str, recvType: str, imageUrl: str, buttons: list = [], parentId: str = None):
         data = {
             "recvId": recvId,
             "recvType": recvType,
@@ -49,9 +53,11 @@ class Send:
                 "buttons": [buttons]
             }
         }
+        if parentId != None:
+            data["parentId"] = parentId
         return WebSend(self.api_url, self.headers, data)
 
-    def File(self, recvId: str, recvType: str, fileName: str, fileUrl: str, buttons: list = []):
+    def File(self, recvId: str, recvType: str, fileName: str, fileUrl: str, buttons: list = [], parentId: str = None):
         data = {
             "recvId": recvId,
             "recvType": recvType,
@@ -62,6 +68,8 @@ class Send:
                 "buttons": [buttons]
             }
         }
+        if parentId != None:
+            data["parentId"] = parentId
         return WebSend(self.api_url, self.headers, data)
 
 
