@@ -10,6 +10,7 @@ BotUnFollowedFuncList = []
 GroupJoinFuncList = []
 GroupLeaveFuncList = []
 BotSettingsFuncList = []
+ButtonClickFuncList = []
 AllTypeFuncList = []
 
 
@@ -83,6 +84,16 @@ class Message:
         def __call__(self, *args, **kwds):
             rv = self.func(*args, **kwds)
             return rv
+
+    class ButtonClick:
+        def __init__(self, func) -> None:
+            global ButtonClickFuncList
+            self.func = func
+            ButtonClickFuncList.append(func)
+
+        def __call__(self, *args, **kwds):
+            rv = self.func(*args, **kwds)
+            return rv
     
     class AllType:
         def __init__(self, func) -> None:
@@ -124,6 +135,9 @@ def RecvMsg():
             func(data=data['event'])
     if data['header']['eventType'] == "group.leave":
         for func in GroupLeaveFuncList:
+            func(data=data['event'])
+    if data['header']['eventType'] ==  "button.report.inline":
+        for func in ButtonClickFuncList:
             func(data=data['event'])
     if AllTypeFuncList != []:
         for func in AllTypeFuncList:
