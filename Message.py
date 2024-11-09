@@ -9,6 +9,16 @@ def WebSend(api_url, headers, data) -> dict:
     return json.loads(response.text)
 
 
+def ImageAPI(path: str) -> str:
+    Webhook = "https://chat-go.jwzhd.com/open-apis/v1/image/upload?token="
+    api_url = Webhook + Token
+    files=[
+        ('image',open(path,'rb'))
+    ]
+    response = requests.request("POST", api_url, files=files)
+    return response.json()
+
+
 class Send:
     def __init__(self):
         Webhook = 'https://chat-go.jwzhd.com/open-apis/v1/bot/send?token='
@@ -43,13 +53,13 @@ class Send:
             data["parentId"] = parentId
         return WebSend(self.api_url, self.headers, data)
 
-    def Image(self, recvId: str, recvType: str, imageUrl: str, buttons: list = [], parentId: str = None):
+    def Image(self, recvId: str, recvType: str, imagePath: str, buttons: list = [], parentId: str = None):
         data = {
             "recvId": recvId,
             "recvType": recvType,
             "contentType": "image",
             "content": {
-                "imageUrl": imageUrl,
+                "imageKey": ImageAPI(imagePath)["data"]["imageKey"],
                 "buttons": [buttons]
             }
         }
@@ -105,14 +115,14 @@ class Edit:
         }
         return WebSend(self.api_url, self.headers, data)
 
-    def Image(self, msgId: str, recvId: str, recvType: str, new_image_url: str, buttons: list = []):
+    def Image(self, msgId: str, recvId: str, recvType: str, new_image_path: str, buttons: list = []):
         data = {
             "msgId": msgId,
             "recvId": recvId,
             "recvType": recvType,
             "contentType": "image",
             "content": {
-                "imageUrl": new_image_url,
+                "imageKey": ImageAPI(new_image_path)["data"]["imageKey"],
                 "buttons": [buttons]
             }
         }
