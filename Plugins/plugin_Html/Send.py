@@ -9,7 +9,7 @@ def WebSend(api_url, headers, data) -> dict:
     return json.loads(response.text)
 
 
-def SendHtml(recvId: str, recvType: str, html: str):
+def Send(recvId: str, recvType: str, html: str):
     BaseUrl = 'https://chat-go.jwzhd.com/open-apis/v1/bot/send?token='
     api_url = BaseUrl + Token
     headers = {"Content-Type": "application/json; charset=utf-8", }
