@@ -166,31 +166,37 @@ class Board:
         self.api_url = Webhook + Token
         self.headers = {"Content-Type": "application/json; charset=utf-8", }
 
-    def Text(self, recvId: str, recvType: str, text: str):
+    def Text(self, recvId: str, recvType: str, text: str, expireTime: int = 0):
         data = {
             "recvId": recvId,
             "recvType": recvType,
             "contentType": "text",
             "content": text,
         }
+        if expireTime != 0:
+            data["expireTime"] = expireTime
         return WebSend(self.api_url, self.headers, data)
 
-    def Markdown(self, recvId: str, recvType: str, markdown: str):
+    def Markdown(self, recvId: str, recvType: str, markdown: str, expireTime: int = 0):
         data = {
             "recvId": recvId,
             "recvType": recvType,
             "contentType": "markdown",
             "content": markdown,
         }
+        if expireTime != 0:
+            data["expireTime"] = expireTime
         return WebSend(self.api_url, self.headers, data)
 
-    def Html(self, recvId: str, recvType: str, html: str):
+    def Html(self, recvId: str, recvType: str, html: str, expireTime: int = 0):
         data = {
             "recvId": recvId,
             "recvType": recvType,
             "contentType": "html",
             "content": html,
         }
+        if expireTime != 0:
+            data["expireTime"] = expireTime
         return WebSend(self.api_url, self.headers, data)
 
     def Dismiss(self, recvId: str, recvType: str):
@@ -207,25 +213,31 @@ class Board:
             self.api_url = Webhook + Token
             self.headers = {"Content-Type": "application/json; charset=utf-8", }
 
-        def Text(self, text: str):
+        def Text(self, text: str, expireTime: int = 0):
             data = {
                 "contentType": "text",
                 "content": text,
             }
+            if expireTime != 0:
+                data["expireTime"] = expireTime
             return WebSend(self.api_url, self.headers, data)
 
-        def Markdown(self, markdown: str):
+        def Markdown(self, markdown: str, expireTime: int = 0):
             data = {
                 "contentType": "markdown",
                 "content": markdown,
             }
+            if expireTime != 0:
+                data["expireTime"] = expireTime
             return WebSend(self.api_url, self.headers, data)
 
-        def Html(self, html: str):
+        def Html(self, html: str, expireTime: int = 0):
             data = {
                 "contentType": "html",
                 "content": html,
             }
+            if expireTime != 0:
+                data["expireTime"] = expireTime
             return WebSend(self.api_url, self.headers, data)
 
         def Dismiss(self):
