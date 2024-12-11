@@ -22,6 +22,7 @@ if "message" in config:
     is_append_send_header = False
     is_append_edit_header = False
     is_append_get_header = False
+    is_append_board_header = False
     is_append_board_user_header = False
     is_append_board_global_header = False
     for need in config['message']:
@@ -60,7 +61,7 @@ if "message" in config:
                 file_content += message_template.edit_file
                 continue
         if need == "delete":
-            message_template.delete
+            file_content += message_template.delete
             continue
         if need.startswith("get:"):
             need = need[4:]
@@ -75,6 +76,9 @@ if "message" in config:
                 continue
         if need.startswith("board-user:"):
             need = need[11:]
+            if not is_append_board_header:
+                file_content += message_template.board_class_header
+                is_append_board_header = True
             if not is_append_board_user_header:
                 file_content += message_template.board_user_class_header
                 is_append_board_user_header = True
@@ -92,6 +96,9 @@ if "message" in config:
                 continue
         if need.startswith("board-global:"):
             need = need[13:]
+            if not is_append_board_header:
+                file_content += message_template.board_class_header
+                is_append_board_header = True
             if not is_append_board_global_header:
                 file_content += message_template.board_global_class_header
                 is_append_board_global_header = True

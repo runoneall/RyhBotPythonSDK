@@ -184,8 +184,11 @@ message_after = '''
         return json.loads(response.text)
 '''
 
-board_user_class_header = '''
+board_class_header = '''
 class Board:
+'''
+
+board_user_class_header = '''
     def __init__(self):
         Webhook = 'https://chat-go.jwzhd.com/open-apis/v1/bot/board?token='
         self.api_url = Webhook + Token
