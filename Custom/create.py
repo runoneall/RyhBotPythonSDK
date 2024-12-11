@@ -188,3 +188,10 @@ if config['allow-plugin'] == True:
     shutil.copy(f'{plugins_dir}/Plugin.py', f'{root_dir}/')
     shutil.copy(f'{plugins_dir}/plugin-tool.py', f'{root_dir}/')
     print("Plugin Created")
+
+with open(f"{root_dir}/__init__.py", "w", encoding="utf-8") as init_file:
+    init_file.write("")
+
+shutil.copy(f'LICENSE', f'{root_dir}/')
+
+print("All Done!")
