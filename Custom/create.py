@@ -6,7 +6,7 @@ import message_template
 
 
 root_dir = "RyhBotPythonSDK"
-plugins_dir = f"{root_dir}/plugin"
+plugins_dir = f"plugin"
 
 if os.path.exists(root_dir):
     shutil.rmtree(root_dir)
@@ -183,4 +183,8 @@ if "server" in config:
     print("Server Created")
 
 if config['allow-plugin'] == True:
-    print("Creating plugin directory...")
+    print("Creating Plugin...")
+    os.mkdir(f"{root_dir}/Plugins")
+    shutil.copy(f'{plugins_dir}/Plugin.py', f'{root_dir}/')
+    shutil.copy(f'{plugins_dir}/plugin-tool.py', f'{root_dir}/')
+    print("Plugin Created")
