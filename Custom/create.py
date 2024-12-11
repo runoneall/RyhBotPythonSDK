@@ -1,8 +1,9 @@
 import shutil
 import os
 import json
-from .templates.message import template as message_template
-from .templates.server import template as server_template
+import server_template
+import message_template
+
 
 root_dir = "RyhBotPythonSDK"
 plugins_dir = f"{root_dir}/plugin"
@@ -14,3 +15,11 @@ os.mkdir(root_dir)
 with open("config.json", "r", encoding="utf-8") as config_file:
     config = json.load(config_file)
 
+if "message" in config:
+    print("Creating message plugin...")
+
+if "server" in config:
+    print("Creating server plugin...")
+
+if config['allow-plugin'] == True:
+    print("Creating plugin directory...")
