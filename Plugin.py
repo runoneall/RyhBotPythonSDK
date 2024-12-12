@@ -41,14 +41,11 @@ class PluginLoader:
                 for attr_name in attrs:
                     attr_value_name = attr_dict[attr_name]
                     attr_value = importlib.import_module(f'{PluginName}.{attr_value_name}')
-                    print(f' `- {attr_value_name} ==> {attr_name}')
                     attr_list[attr_name] = attr_value
-                print(f'Set Name: {func_name}')
                 attr_class = type(func_name, (object,), attr_list)
 
                 # Add Class To Plugin
                 setattr(Plugins, func_name, attr_class)
-                print('Finish\n')
 
 
 PluginLoader()
