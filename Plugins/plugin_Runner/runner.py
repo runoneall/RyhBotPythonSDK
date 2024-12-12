@@ -1,18 +1,13 @@
+import os
+import signal
 from multiprocessing import Process
 
-proc: Process = None
-
 def run(target, *args, **kwargs):
-    global proc
-    print("[#] Code Running In Runner")
+    print("[#] Start Runner")
     proc = Process(target=target, args=args, kwargs=kwargs)
     proc.start()
+    return proc.pid
 
-def stop():
-    global proc
-    print("[#] Stopping Runner")
-    if proc is not None and proc.is_alive():
-        proc.terminate()
-        proc.join()
-        proc = None
-    print("[#] Runner Stopped")
+def stop(pid: int):
+    print("[#] Stop Runner")
+    os.kill(pid, signal.SIGTERM)
