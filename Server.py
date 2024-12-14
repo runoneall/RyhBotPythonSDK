@@ -147,5 +147,6 @@ def Start(host: str, port: int, debug: bool = False):
     app.run(
         host=host,
         port=port,
-        debug=debug
+        debug=debug,
+        threaded=True
     )
