@@ -26,12 +26,12 @@ def Upload(User: str, AvatarPath: str) -> str:
         "https://upload-z2.qiniup.com/",
         files=collections.OrderedDict({
             "token": (None, qiniu_token),
-            "key": (None, file_key),
+            "key": (None, file_key+"."+AvatarType),
             "file": (None, file_content),
             "fname": (None, AvatarName)
         })
     ).json()["key"]
 
     # Get Avatar URL
-    AvatarURL = f"https://chat-img.jwznb.com/{img_key}.{AvatarType}"
+    AvatarURL = f"https://chat-img.jwznb.com/{img_key}"
     return AvatarURL
