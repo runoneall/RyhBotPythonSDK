@@ -8,3 +8,4 @@
 ## TODO
 
 - BotClient Plugin Document
+- LiteAI Plugin Document
