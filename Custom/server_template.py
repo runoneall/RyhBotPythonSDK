@@ -1,5 +1,5 @@
 header = '''
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 import json
 
 app = Flask(__name__)
@@ -11,9 +11,18 @@ class Message:
 '''
 
 router_header = '''
-@app.route('/', methods=['POST'])
+def PreCall(data):
+    return data
+
+
+@app.route("/", methods=["POST"])
 def RecvMsg():
-    data = request.json
+    data = PreCall(request.json)
+    if isinstance(data, str):
+        if data.startswith("!SERVER:"):
+            code = int(data.split(":")[1])
+            return make_response(data, code)
+        return make_response("", 500)
 '''
 
 router_footer = '''

@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 import json
 
 app = Flask(__name__)
@@ -94,7 +94,7 @@ class Message:
         def __call__(self, *args, **kwds):
             rv = self.func(*args, **kwds)
             return rv
-    
+
     class AllType:
         def __init__(self, func) -> None:
             global AllTypeFuncList
@@ -106,37 +106,46 @@ class Message:
             return rv
 
 
-@app.route('/', methods=['POST'])
-def RecvMsg():
-    data = request.json
+def PreCall(data):
+    return data
 
-    if data['header']['eventType'] == "message.receive.normal":
+
+@app.route("/", methods=["POST"])
+def RecvMsg():
+    data = PreCall(request.json)
+    if isinstance(data, str):
+        if data.startswith("!SERVER:"):
+            code = int(data.split(":")[1])
+            return make_response(data, code)
+        return make_response("", 500)
+
+    if data["header"]["eventType"] == "message.receive.normal":
         for func in NormalFuncList:
-            func(data=data['event'])
-    if data['header']['eventType'] == "message.receive.instruction":
+            func(data=data["event"])
+    if data["header"]["eventType"] == "message.receive.instruction":
         for func in CommandFuncList:
-            func(data=data['event'])
-    if data['header']['eventType'] == "bot.followed":
+            func(data=data["event"])
+    if data["header"]["eventType"] == "bot.followed":
         for func in BotFollowedFuncList:
-            func(data=data['event'])
-    if data['header']['eventType'] == "bot.unfollowed":
+            func(data=data["event"])
+    if data["header"]["eventType"] == "bot.unfollowed":
         for func in BotUnFollowedFuncList:
-            func(data=data['event'])
-    if data['header']['eventType'] == "bot.setting":
+            func(data=data["event"])
+    if data["header"]["eventType"] == "bot.setting":
         for func in BotSettingsFuncList:
-            func(data=data['event'])
-    if data['header']['eventType'] == "group.join":
+            func(data=data["event"])
+    if data["header"]["eventType"] == "group.join":
         for func in GroupJoinFuncList:
-            func(data=data['event'])
-    if data['header']['eventType'] == "group.leave":
+            func(data=data["event"])
+    if data["header"]["eventType"] == "group.leave":
         for func in GroupLeaveFuncList:
-            func(data=data['event'])
-    if data['header']['eventType'] ==  "button.report.inline":
+            func(data=data["event"])
+    if data["header"]["eventType"] == "button.report.inline":
         for func in ButtonClickFuncList:
-            func(data=data['event'])
+            func(data=data["event"])
     if AllTypeFuncList != []:
         for func in AllTypeFuncList:
-            func(data=data['event'])
+            func(data=data["event"])
 
     with open("RecvMsg.json", "w", encoding="utf-8") as RecvMsg:
         json.dump(data, RecvMsg, ensure_ascii=False, indent=4)
@@ -144,9 +153,4 @@ def RecvMsg():
 
 
 def Start(host: str, port: int, debug: bool = False):
-    app.run(
-        host=host,
-        port=port,
-        debug=debug,
-        threaded=True
-    )
+    app.run(host=host, port=port, debug=debug, threaded=True)
