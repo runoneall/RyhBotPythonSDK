@@ -9,14 +9,18 @@ def WebSend(api_url, headers, data) -> dict:
     return json.loads(response.text)
 
 
+def WebSendFile(api_url, files) -> dict:
+    response = requests.request("POST", api_url, files=files)
+    return response.json()
+
+
 def ImageAPI(path: str) -> dict:
     Webhook = "https://chat-go.jwzhd.com/open-apis/v1/image/upload?token="
     api_url = Webhook + Token
     files=[
         ('image',open(path,'rb'))
     ]
-    response = requests.request("POST", api_url, files=files)
-    return response.json()
+    return WebSendFile(api_url, files=files)
 
 
 def VideoAPI(path: str) -> str:
@@ -25,8 +29,7 @@ def VideoAPI(path: str) -> str:
     files=[
         ('video',open(path,'rb'))
     ]
-    response = requests.request("POST", api_url, files=files)
-    return response.json()
+    return WebSendFile(api_url, files=files)
 
 
 def FileAPI(path: str) -> str:
@@ -35,8 +38,7 @@ def FileAPI(path: str) -> str:
     files=[
         ('file',open(path,'rb'))
     ]
-    response = requests.request("POST", api_url, files=files)
-    return response.json()
+    return WebSendFile(api_url, files=files)
 
 
 class Send:
