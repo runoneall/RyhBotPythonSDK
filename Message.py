@@ -87,14 +87,27 @@ class Send:
             data["parentId"] = parentId
         return WebSend(self.api_url, self.headers, data)
 
-    def File(self, recvId: str, recvType: str, fileName: str, fileUrl: str, buttons: list = [], parentId: str = None):
+    def Video(self, recvId: str, recvType: str, videoPath: str, buttons: list = [], parentId: str = None):
+        data = {
+            "recvId": recvId,
+            "recvType": recvType,
+            "contentType": "video",
+            "content": {
+                "videoKey": VideoAPI(videoPath)["data"]["videoKey"],
+                "buttons": [buttons]
+            }
+        }
+        if parentId != None:
+            data["parentId"] = parentId
+        return WebSend(self.api_url, self.headers, data)
+
+    def File(self, recvId: str, recvType: str, filePath: str, buttons: list = [], parentId: str = None):
         data = {
             "recvId": recvId,
             "recvType": recvType,
             "contentType": "file",
             "content": {
-                "fileName": fileName,
-                "fileUrl": fileUrl,
+                "fileKey": FileAPI(filePath)["data"]["fileKey"],
                 "buttons": [buttons]
             }
         }
