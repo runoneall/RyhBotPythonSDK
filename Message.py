@@ -9,11 +9,31 @@ def WebSend(api_url, headers, data) -> dict:
     return json.loads(response.text)
 
 
-def ImageAPI(path: str) -> str:
+def ImageAPI(path: str) -> dict:
     Webhook = "https://chat-go.jwzhd.com/open-apis/v1/image/upload?token="
     api_url = Webhook + Token
     files=[
         ('image',open(path,'rb'))
+    ]
+    response = requests.request("POST", api_url, files=files)
+    return response.json()
+
+
+def VideoAPI(path: str) -> str:
+    Webhook = "https://chat-go.jwzhd.com/open-apis/v1/video/upload?token="
+    api_url = Webhook + Token
+    files=[
+        ('video',open(path,'rb'))
+    ]
+    response = requests.request("POST", api_url, files=files)
+    return response.json()
+
+
+def FileAPI(path: str) -> str:
+    Webhook = "https://chat-go.jwzhd.com/open-apis/v1/file/upload?token="
+    api_url = Webhook + Token
+    files=[
+        ('file',open(path,'rb'))
     ]
     response = requests.request("POST", api_url, files=files)
     return response.json()
