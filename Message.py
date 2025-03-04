@@ -21,14 +21,14 @@ def ImageAPI(path: str) -> dict:
     return WebSendFile(api_url, files=files)
 
 
-def VideoAPI(path: str) -> str:
+def VideoAPI(path: str) -> dict:
     Webhook = "https://chat-go.jwzhd.com/open-apis/v1/video/upload?token="
     api_url = Webhook + Token
     files = [("video", open(path, "rb"))]
     return WebSendFile(api_url, files=files)
 
 
-def FileAPI(path: str) -> str:
+def FileAPI(path: str) -> dict:
     Webhook = "https://chat-go.jwzhd.com/open-apis/v1/file/upload?token="
     api_url = Webhook + Token
     files = [("file", open(path, "rb"))]
